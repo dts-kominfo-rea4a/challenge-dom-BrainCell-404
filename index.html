@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Challenge - DOM</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div id="app">
       <!-- TODO: Buatlah sebuah header dengan id todo-title -->
       <!-- TODO: Buatlah sebuah subtitle dengan id todo-subtitle -->
-
       <!-- Section: input -->
       <!-- TODO: Buatlah sebuah input bertipe text dengan id todo-input -->
       <!-- TODO: Buatlah sebuah button dengan id todo-submit -->
@@ -22,18 +22,86 @@
     <!-- ! Untuk tantangan ini, script jangan diubah ke external js yah ! -->
     <script>
       // TODO: Deklarasi variable sesuai dengan kebutuhan di sini
-      let button;
-      let input;
-      let output;
+
+      // Select Container
+      const containerElem = document.getElementById("app");
+
+      // Create new Element for Main Title
+      const mainTitle = document.createElement("h3");
+      mainTitle.id = "todo-title";
+      mainTitle.innerHTML = "To-Do List";
+      containerElem.appendChild(mainTitle);
+
+      // Create new Element for Sub Title
+      const subTitle = document.createElement("h5");
+      subTitle.id = "todo-subtitle";
+      subTitle.innerHTML = "- Today I need to -";
+      containerElem.appendChild(subTitle);
+
+      // Create new Input Element for todo
+      const todoInput = document.createElement("input");
+      todoInput.id = "todo-input";
+      todoInput.setAttribute("type", "input");
+      todoInput.setAttribute("placeholder", "Please Input Something");
+      containerElem.appendChild(todoInput);
+
+      // Create new Submit Button for todo
+      const submitButton = document.createElement("button");
+      submitButton.id = "todo-submit";
+      submitButton.innerHTML = "Submit";
+      containerElem.appendChild(submitButton);
+
+      // Create new Ul(Unorder List) for todo item
+      const ulContainer = document.createElement("ul");
+      ulContainer.id = "todo-output";
+      containerElem.appendChild(ulContainer);
+
+      // Select Input field
+      const todoInputField = document.getElementById("todo-input");
+      // select submit button
+      const todoSubmit = document.getElementById("todo-submit");
+
+      // Click Submit button Event
+      todoSubmit.addEventListener("click", async () => {
+        // select Input area
+        const userInput = document.getElementById("todo-input").value;
+
+        await fnClickHandler(userInput);
+
+        // Reset input
+        document.getElementById("todo-input").value = "";
+      });
+
+      // Press Enter for submit Event
+      todoInputField.addEventListener("keypress", async (e) => {
+        if (e.key === "Enter" || e.keyCode === 13) {
+          // select Input area
+          const userInput = document.getElementById("todo-input").value;
+
+          await fnClickHandler(userInput);
+
+          // Reset input
+          document.getElementById("todo-input").value = "";
+        }
+      });
 
       // TODO: Buatlah sebuah fungsi dengan nama fnClickHandler
       // Fungsi yang digunakan untuk menambahkan tulisan
       // Jangan ubah cara deklarasi fungsinya, cukup isi saja
-      function fnClickHandler(toDoItem) {}
+      function fnClickHandler(toDoItem) {
+        // Select Ul Container
+        const ulContainer = document.getElementById("todo-output");
+
+        // add new List Item
+        const newItem = document.createElement("li");
+        newItem.innerHTML = `${toDoItem}`;
+
+        ulContainer.appendChild(newItem);
+      }
 
       // TODO: register event onclick / addEventListener untuk button
       // akan menjalankan fungsi fnClickHandler
-      
+
       // TODO: register event onkeypress / addEventListener untuk input
       // sehingga saat di input ditekan enter akan menjalankan fungsi fnClickHandler juga
     </script>
